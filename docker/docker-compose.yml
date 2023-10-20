@@ -1,0 +1,8 @@
+name: sr_fastapi
+services:
+  fastapi:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ../src:/app
