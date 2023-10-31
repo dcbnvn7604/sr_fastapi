@@ -38,3 +38,8 @@ def logined(user_id: Annotated[int, Depends(authen)]):
 @router.get("/log")
 def log():
     logger.info('log')
+
+
+@router.get("/exception")
+def exception():
+    raise Exception()

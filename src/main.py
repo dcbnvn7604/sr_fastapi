@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 import uuid
 
 from route import auth
@@ -18,3 +19,8 @@ async def log_request(request: Request, call_next):
     response = await call_next(request)
     logger.info(f'Status {response.status_code}')
     return response
+
+
+@app.exception_handler(Exception)
+async def handle_exception(request: Request, exc: Exception):
+    return JSONResponse(status_code=500, content={})
