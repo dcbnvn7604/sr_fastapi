@@ -2,12 +2,15 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import uuid
 
-from route import auth
+from route import auth, exception, log, transaction
 from logger import request_id, logger
 
 app = FastAPI()
 
 app.include_router(auth.router)
+app.include_router(exception.router)
+app.include_router(log.router)
+app.include_router(transaction.router)
 
 @app.middleware("http")
 async def log_request(request: Request, call_next):

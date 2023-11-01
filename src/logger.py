@@ -11,7 +11,7 @@ class ContextFilter(logging.Filter):
         return True
 
 
-logger = logging.getLogger('')
+logger = logging.getLogger('app')
 logger.setLevel(logging.INFO)
 
 ch = logging.StreamHandler()

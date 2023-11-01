@@ -15,3 +15,14 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def transaction(fn):
+    def _fn(*args, **kwargs):
+        if args[0].db.in_transaction():
+            return fn(*args, **kwargs)
+               
+        with args[0].db.begin():
+            return fn(*args, **kwargs)
+
+    return _fn
