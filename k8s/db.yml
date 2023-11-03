@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: fastapi
+    tier: db
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: fastapi
+      tier: db
+  template:
+    metadata:
+      labels:
+        app: fastapi
+        tier: db
+    spec:
+      containers:
+      - name: db
+        image: mariadb:10.6
+        env:
+          - name: MARIADB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: db_user
+          - name: MARIADB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: db_database
+          - name: MARIADB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: config
+                key: db_password
+          - name: MARIADB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: config
+                key: db_password
+        ports:
+        - containerPort: 3306
+          name: mariadb

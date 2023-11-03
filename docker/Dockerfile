@@ -15,3 +15,5 @@ copy src /app
 workdir /app
 
 run pipenv install
+
+entrypoint ["pipenv", "run", "uvicorn", "main:app", "--host", "0.0.0.0"]
