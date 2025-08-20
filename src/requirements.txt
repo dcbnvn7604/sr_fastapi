@@ -1,2 +1,5 @@
 fastapi==0.116.1
 fastapi-cli==0.0.8
+alembic==1.16.4
+SQLAlchemy==2.0.43
+psycopg2-binary==2.9.10
