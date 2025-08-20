@@ -1,0 +1,13 @@
+name: sr_fastapi
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: python:3.12.11-slim-bookworm
+    entrypoint: ["tail", "-f", "/dev/null"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../src:/app
